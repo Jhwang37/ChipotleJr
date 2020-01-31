@@ -1,10 +1,7 @@
 package com.company;
 
 import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
+import java.util.*;
 
 public class Chipotle {
 
@@ -32,17 +29,11 @@ public class Chipotle {
         put(18, "No Veggies");
         put(19, "All Veggies");//veg
     }};
-    private Boolean cheese = false;
-    private Boolean guac = false;
-    private Boolean queso = false;
-    private Boolean sourCream = false;
-    private final double ADDANOTHER = .50, ALLMEAT = 2.00, ALLVEGGIES = 1.00,
-            ALLBEANS = 1.00, ALLRICE = 1.00;
-    int i = 1;
-
-
+    private final double ADDANOTHER = .50, ALLMEAT = 2.00, ALLVEGGIES = 1.00, ALLBEANS = 1.00, ALLRICE = 1.00;
     private ArrayList cart = new ArrayList();
     ArrayList totalCart = new ArrayList();
+    double totallPrice = 0; // total price of all orders
+    int i = 1; //my counter for order number
 
     //Constructor
     public Chipotle() {
@@ -50,29 +41,21 @@ public class Chipotle {
             System.out.println("Burrito #" + i++);
             randomMethod(chipotleIngrediants);//calling the (random method) with the hashmap as parameter.
             System.out.println("Total Price : $" + totalPrice(cart));//totalPrice method with the cart as parameter
-            }
-        for(Object key : totalCart){
-            String s = ("|"+key + ": " + Collections.frequency(totalCart, key)+"|");
-            System.out.println(s);
-
-
         }
-//        String s = ("|"+key + ": " + Collections.frequency(totalCart, key)+"|");
-
-
-
-
-
+        for (Object key : totalCart) {
+            //Collections.frequency method to find occurrence of same strings.
+            String totalNumOfOrder = ("|" + key + ": " + Collections.frequency(totalCart, key) + "|");
+            System.out.println(totalNumOfOrder);
+        }
+        System.out.println("Total Price: $" + totallPrice);
     }
 
-    /*method first grabs a random int from 5-9 for the number of ingredients
-       *Then gets another random int 1-19 (size of hashmap) and gets a random item from the hashmap
-       * and places into array list called cart.
-     */
+    //method first grabs a random int from 5-9 for the number of ingredients
+    //Then gets another random int 1-19 (size of hashmap) and gets a random item from the hashmap
+    //and places into array list called cart.
     public ArrayList randomMethod(HashMap chipotleIngrediants) {
         ArrayList cart = new ArrayList();
         int loop = 5 + (int) (Math.random() * ((9 - 5) + 1));
-
         for (int i = 0; i <= loop; i++) {
             int choice = 1 + (int) (Math.random() * ((20 - 1) - 1));
             cart.add(chipotleIngrediants.get(choice)); //Cart for each order
@@ -84,7 +67,7 @@ public class Chipotle {
     }
 
 
-     //Price will always start at 3.00 and increment depending on the Strings the array list contains.
+    //Price will always start at 3.00 and increment depending on the Strings the array list contains.
     public double totalPrice(ArrayList cart) {
         double totalPrice = 3.00;
         for (int i = 0; i <= cart.size(); i++) {
@@ -102,7 +85,8 @@ public class Chipotle {
                 totalPrice += ADDANOTHER;
             }
         }
-        return totalPrice;
+        totallPrice += totalPrice;
+        return totallPrice;
     }
 }
 
