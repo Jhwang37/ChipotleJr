@@ -84,9 +84,11 @@ public class Chipotle {
             } else {
                 totalPrice += ADDANOTHER;
             }
+
         }
+
         totallPrice += totalPrice;
-        return totallPrice;
+        return totalPrice;
     }
 }
 
